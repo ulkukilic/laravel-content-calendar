@@ -24,7 +24,7 @@ class AuthController extends Controller
         // return view('auth.login'); }
         // // eger showloginForm icerisinde kullanmak yerine direk login icerisinde kullanilmak istenirse bu sekilde get olugunu belli ederek kullanilabilir
     }
-    public function login ()    // login islemleri icin sql baglantisindan users icersindeki email bakiliyor ve gerekli email degiskene ataniyor ilk gelen aliniyro
+    public function login (Request $request)    // login islemleri icin sql baglantisindan users icersindeki email bakiliyor ve gerekli email degiskene ataniyor ilk gelen aliniyro
     {
         $user=DB::table('users')
           ->where('email',$request->email)
@@ -62,7 +62,7 @@ class AuthController extends Controller
         return view('auth.register');
     }
     
-    public function register()
+    public function register(Request $request)
     {
         // Validator::make: Laravel’in Validator facade’ı ile $request verilerini belirtilen kurallara göre kontrol eder.
         Validator::make($request->all(),[

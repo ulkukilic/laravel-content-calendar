@@ -26,8 +26,9 @@
         <a href="{{ url('lang/tr') }}" class="btn btn-sm btn-outline-primary">TR</a>
         <a href="{{ url('lang/en') }}" class="btn btn-sm btn-outline-primary">EN</a>>
         <!--  Karanlık/aydınlık mod butonu -->
-        <a href="{{ url('theme/light') }}" class="btn btn-sm btn-outline-secondary">☀️</a>
-        <a href="{{ url('theme/dark') }}"  class="btn btn-sm btn-outline-secondary">🌙</a>
+       <a href="{{ route('theme.switch','light') }}" class="btn btn-sm btn-outline-secondary">☀️ Light</a>
+       <a href="{{ route('theme.switch','dark') }}"  class="btn btn-sm btn-outline-secondary">🌙 Dark</a>
+  
       </div>
     </div>
   </header>

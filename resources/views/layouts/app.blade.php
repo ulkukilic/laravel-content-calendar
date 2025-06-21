@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+@if($theme === 'dark')
+  <link href="{{ asset('css/app-dark.css') }}" rel="stylesheet">
+@else
+  <link href="{{ asset('css/app-light.css') }}" rel="stylesheet">
+@endif
 
   <title>@yield('title')</title>
   <link href="{{ asset('panel/assets/css/layouts.css') }}" rel="stylesheet">
