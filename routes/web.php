@@ -12,6 +12,9 @@ Route::get('/clrall', function () {
     Artisan::call('optimize');
     echo "Cache temizlendi!";
 });
+Route::get('settings', [SettingsController::class, 'show'])->name('settings.show');
+Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
+
 // — Ana sayfaya gelen istekleri login ekranına yönlendir
  Route::get('/', fn() => redirect()->route('login.form'));
 
@@ -23,27 +26,24 @@ Route::get('/clrall', function () {
 
      // Kayıt
      Route::get('register', 'showRegistrationForm')->name('register.form');
-     Route::post('register', 'registerSave')->name('register.submit');
+     Route::post('register', 'register')->name('register.submit');
 
      // Çıkış
      Route::post('logout', 'logout')->name('logout');
     });
-
-
-    Route::get('theme/{theme}', function ($theme) 
-    {
-        if (in_array($theme, ['light','dark'])) 
-        {
-            session(['theme' => $theme]);
-        }
-        return back();
-    })->name('theme.switch');
-
+   // -- Dil Degistirme -- 
     Route::get('lang/{locale}', function ($locale) 
     {
-        if (in_array($locale, ['en','tr'])) 
-        {
-            session(['locale' => $locale]);
-        }
-        return back();
-    })->name('lang.switch');
+        session(['locale' => $locale]);
+        return redirect()->back();
+    })->name('lang.switch')->where('locale', 'en|tr');
+
+    // --- Tema değiştirme ---
+    Route::get('theme/{mode}', function ($mode) 
+    {
+        session(['theme' => $mode]);
+        return redirect()->back();
+    })->name('theme.switch')->where('mode', 'light|dark');
+
+    Route::view('/privacy', 'privacy')->name('privacy');
+    Route::view('/terms',   'terms')->name('terms');

@@ -1,0 +1,146 @@
+/* resources/css/app-light.css */
+/* ---- Açık Tema ---- */
+
+body {
+  background-color: #ffffff;
+  color: #212529;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+a {
+  color: #007bff;
+}
+a:hover {
+  color: #0056b3;
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+}
+
+.navbar, header, footer {
+  background-color: #ffffff;
+  color: #212529;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+/* Form elemanları */
+.form-control, .form-select {
+  background-color: #fff;
+  color: #495057;
+  border: 1px solid #ced4da;
+}
+
+/* Diğer genel ayarlar */
+.content-wrapper {
+  padding: 1.5rem;
+}
+/* ---- Privacy & Terms Kart Stilleri (Light) ---- */
+.privacy-terms {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  line-height: 1.7;
+}
+
+.privacy-terms h2 {
+  font-size: 2rem;
+  color: #212529;
+  margin-bottom: 1rem;
+}
+
+.privacy-terms h3 {
+  font-size: 1.5rem;
+  color: #343a40;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.privacy-terms p,
+.privacy-terms ul {
+  font-size: 1rem;
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.privacy-terms ul {
+  list-style: disc inside;
+  padding-left: 1rem;
+}
+
+.privacy-terms a {
+  color: #007bff;
+  text-decoration: underline;
+}
+/* Tam yükseklik ve flex ayarları */
+.login-page .full-height {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-top: 4rem;    /* Üstten boşluk, logo için */
+  padding-bottom: 4rem; /* Alttan boşluk */
+  gap: 2rem;            /* Elemanlar arasında boşluk */
+}
+
+/* Sol üst logo küçültme ve sabitleme */
+.login-page .p-h-40 {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 80px;
+  height: auto;
+}
+
+/* Form kutusunu sabitle ve sınırlandır */
+.login-page .col-md-5 {
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+/* Kartın (form) ekstra iç boşluğu */
+.login-page .card-body {
+  padding: 2rem;
+}
+
+/* Sağ resim için pozisyonlama */
+.login-page .offset-md-1.col-md-6 {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive: küçük ekranlarda resmi gizle (isteğe bağlı) */
+@media (max-width: 767px) {
+  .login-page .offset-md-1.col-md-6 {
+    display: none;
+  }
+}

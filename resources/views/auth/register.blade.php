@@ -7,7 +7,7 @@
     <div class="d-flex full-height p-v-20 flex-column justify-content-between"> <!--tam yükseklik alır, dikeyde 20px boşluk, içerikleri üst ve alt köşelere yerleştirir  -->
          {{-- Sol üst logo --}}
         <div class="d-none d-md-flex p-h-40"><!-- -->
-             <img src="{{ asset('panel/assets/images/logo/logo.png') }}" alt="logo">
+             <img src="{{ asset('panel/assets/images/logo.jpg') }}" alt="logo">
         </div>
          {{-- FORM KARTI --}}
         <div class="col-md-5"> <!--ekran genişliklerinde 12 sütunluk sistemin 5 sütununu kaplayarak form kartını sayfa düzenine göre konumlandırır-->

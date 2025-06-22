@@ -3,12 +3,12 @@
 @section('title','Login')
 @section('content')
 
-<div class="container-fluid"> <!-- ekranın solundan sağına kadar yayılır ve kenar boşlukları korur-->
+  <div class="container-fluid login-page"> <!-- ekranın solundan sağına kadar yayılır ve kenar boşlukları korur-->
     <div class="d-flex full-height p-v-20 flex-column justify-content-between"> <!--tam yükseklik alır, dikeyde 20px boşluk, içerikleri üst ve alt köşelere yerleştirir  -->
          {{-- Sol üst logo --}}
         <div class="d-none d-md-flex p-h-40"><!-- -->
-             <img src="{{ asset('panel/assets/images/logo/logo.png') }}" alt="logo">
-        </div>
+        <img src="{{ asset('panel/assets/images/logo.jpg') }}" alt="logo">
+       </div>
          {{-- FORM KARTI --}}
         <div class="col-md-5"> <!--ekran genişliklerinde 12 sütunluk sistemin 5 sütununu kaplayarak form kartını sayfa düzenine göre konumlandırır-->
         <div class="card"> <!--Kart bileşeni: form alanını-->
@@ -62,10 +62,10 @@
         </div>
         </div>
 
-        {-- SAG RESIM --}
+       <!-- SAG RESIM -->
         <div class="offset-md-1 col-md-6 d-none d-md-block">
-          <img class="img-fluid" src="{{ asset('panel/assets/images/logo/logo-fold.png') }}" alt="Login illustration">
-        </div>
+          <img class="img-fluid"  src="{{ asset('panel/assets/images/logo.jpg') }}" alt="logo">
+         </div>
        @endsection
  </div>
         </div>

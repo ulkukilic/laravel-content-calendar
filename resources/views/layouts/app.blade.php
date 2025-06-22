@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="{{ app()->getLocale() }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-@if($theme === 'dark')
-  <link href="{{ asset('css/app-dark.css') }}" rel="stylesheet">
-@else
-  <link href="{{ asset('css/app-light.css') }}" rel="stylesheet">
-@endif
-
+@php $theme = session('theme','light'); @endphp
+ @if($theme==='dark')
+   <link href="{{ asset('panel/assets/css/app-dark.css') }}" rel="stylesheet">
+ @else
+   <link href="{{ asset('panel/assets/css/app-light.css') }}" rel="stylesheet">
+ @endif
   <title>@yield('title')</title>
-  <link href="{{ asset('panel/assets/css/layouts.css') }}" rel="stylesheet">
+  <link href="{{ asset('panel/assets/css/app-light.css') }}" rel="stylesheet">
 </head>
 <body>
   <div class="page-layout">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="{{ app()->getLocale() }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,8 +23,8 @@
       <!-- Tema / Dil Seçici veya Basit Menü -->
       <div class="d-flex gap-2">
         {{-- Dil --}}
-        <a href="{{ url('lang/tr') }}" class="btn btn-sm btn-outline-primary">TR</a>
-        <a href="{{ url('lang/en') }}" class="btn btn-sm btn-outline-primary">EN</a>>
+        <a href="{{ route('lang.switch', 'tr') }}" class="btn btn-sm btn-outline-primary">TR</a>
+        <a href="{{ route('lang.switch', 'en') }}" class="btn btn-sm btn-outline-primary">EN</a>
         <!--  Karanlık/aydınlık mod butonu -->
        <a href="{{ route('theme.switch','light') }}" class="btn btn-sm btn-outline-secondary">☀️ Light</a>
        <a href="{{ route('theme.switch','dark') }}"  class="btn btn-sm btn-outline-secondary">🌙 Dark</a>
