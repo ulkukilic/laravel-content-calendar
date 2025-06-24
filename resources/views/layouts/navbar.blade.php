@@ -22,45 +22,35 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('dash.*') ? 'active' : '' }}" 
-                       href="{{ auth()->user()->role === 'admin' ? route('dash.admin') : route('dash.staff') }}">
-                        Dashboard
+                       href="{{ session('role') === 'admin' ? route('dash.admin'): route('dash.staff') }}">
+                       Dashboard
                     </a>
                 </li>
             </ul>
 
-            {{-- Kullanıcı Profili --}}
-            <ul class="navbar-nav ms-auto">
-                @auth
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ auth()->user()->profile_photo_url ?? asset('panel/assets/images/default-profile.png') }}"
-                                 alt="Profil" class="rounded-circle me-2" width="32" height="32">
-                            <span>{{ auth()->user()->name }}</span>
+            @if(session('user_id'))
+                <!-- Kullanıcı girişli -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown">
+                    {{ session('full_name') }}
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Çıkış Yap
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('profile.show') }}">
-                                    Profilim
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Çıkış Yap
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </li>
-                        </ul>
                     </li>
+                    </ul>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                    </form>
+                </li>
                 @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login.form') }}">Giriş Yap</a>
-                    </li>
-                @endauth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Giriş Yap</a>
+                </li>
+                @endif
+
             </ul>
         </div>
     </div>

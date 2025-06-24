@@ -10,8 +10,7 @@
    <link href="{{ asset('panel/assets/css/app-light.css') }}" rel="stylesheet">
  @endif
   <title>@yield('title')</title>
-  <link href="{{ asset('panel/assets/css/app-light.css') }}" rel="stylesheet">
-</head>
+ </head>
 <body>
   <div class="page-layout">
     <aside class="sidebar">

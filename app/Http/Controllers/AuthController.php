@@ -29,10 +29,24 @@ class AuthController extends Controller
         $user=DB::table('users')
           ->where('email',$request->email)
           ->first();    
+        
+        // Bulunamazsa hata ver
+        if (! $user) 
+        {
+            return back()
+                ->withErrors(['email' => 'Kullanıcı bulunamadı.'])
+                ->withInput();
+        }
 
+        //  Şifre eşleşmiyorsa hata ver
+        if (! Hash::check($request->password, $user->password)) {
+            return back()
+                ->withErrors(['password' => 'Şifre yanlış.'])
+                ->withInput();
+        }
         session([
             'user_id'  =>    $user->id,
-            'name'     =>    $user->name,
+            'full_name' => $user->name,
             'role'     =>    $user->role,
             'email'    =>    $user->email,
         ]);
@@ -40,21 +54,21 @@ class AuthController extends Controller
          // if -else dongusunde kullanici rolune gore giris yapilmak istenen sayfaya yonlendirilir 
         if($user->role=='admin')
         {
-            return redirect()->route('dash.staff');
+            return redirect()->route('dash.admin');
         }
         elseif($user->role=='staff')
         {
-              return redirect()->route('dash.admin');
+              return redirect()->route('dash.staff');
         }
         return back ()
         ->withErrors(['email'=>'The e-mail or password is not correct'])
-        ->withErrors([$request->only('email')]);
+        ->withInput([$request->only('email')]);
     }
     
-    public function logout()
+    public function logout(Request $request)
     {
         $request->session()->flush(); //  Oturumdaki tüm verileri temizleyerek kullanıcıyı sıfırlar
-        return redirect()->route('login.form'); // kullaniciyi login sayfasina yonlendiri
+        return redirect()->route('login'); // kullaniciyi login sayfasina yonlendiri
     }
     
     public function showRegisterForm()
@@ -89,13 +103,14 @@ class AuthController extends Controller
          */
 
         DB::table('users')->insert([ // Yeni kullanıcı veritabanına kaydedilir
-            'name'     => $validated['name'] . ' ' . $validated['surname'],
+            'id'         => Str::uuid(), 
+            'full_name' => $user->name,
             'email'         => $validated['email'],
             'password'      => Hash::make($validated['password']), // Şifre hashlenir
             'role'          => 'staff',
             'created_at'    => Carbon::now(),
         ]);
-         return redirect()->route('login.form')->with('success','Please Enter the Login Form');
+         return redirect()->route('login')->with('success','Please Enter the Login Form');
     }
 
 }

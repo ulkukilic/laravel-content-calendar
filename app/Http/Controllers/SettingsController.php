@@ -10,18 +10,10 @@ class SettingsController extends Controller
    public function show()
    {
     //Oturumdandegeri alip app.localde varsayilani kullandirir 
-    $currentLocele=session(
-        'locale',
-        config('app.locale')
-    );
-    $currentTheme=session(
-        'theme', // oturum anahtari  (dil)
-        'light'  // oturum temasi
-    );
-    return view(
-        'settings.show',
-        compact('currentLocale','currentTheme')
-    );
+    $currentLocale = session('locale', config('app.locale'));
+    $currentTheme  = session('theme','light');
+    return view('settings.show', compact('currentLocale','currentTheme'));
+
    }
 
    public function update(Request $request)

@@ -3,47 +3,54 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AuthController;
-// — Cache temizleme
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\ContentController;
+
 Route::get('/clrall', function () {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Artisan::call('config:cache');
     Artisan::call('route:clear');
     Artisan::call('optimize');
-    echo "Cache temizlendi!";
+    return 'Cache temizlendi!';
 });
-Route::get('settings', [SettingsController::class, 'show'])->name('settings.show');
+// Ayarlar
+Route::get('settings',  [SettingsController::class, 'show'])->name('settings.show');
 Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
 
-// — Ana sayfaya gelen istekleri login ekranına yönlendir
- Route::get('/', fn() => redirect()->route('login.form'));
+// Ana sayfa → login
+Route::get('/', fn() => redirect()->route('login'));
 
- // — AuthController: giriş, kayıt, şifre sıfırlama
-    Route::controller(AuthController::class)->group(function () {
-     // Giriş / Ana sayfa
-     Route::get('login', 'showLoginForm')->name('login.form');
-     Route::post('login','login')->name('login.submit');
+// Auth
+Route::controller(AuthController::class)->group(function () {
+    Route::get('login',    'showLoginForm')->name('login');
+    Route::post('login',   'login')->name('login.submit');
+    Route::get('register', 'showRegisterForm')->name('register');
+    Route::post('register','register')->name('register.submit');
+    Route::post('logout',  'logout')->name('logout');
+});
 
-     // Kayıt
-     Route::get('register', 'showRegistrationForm')->name('register.form');
-     Route::post('register', 'register')->name('register.submit');
+// Dash (önce auth, sonra role)
+Route::middleware('auth.session')->prefix('dash')->group(function () {
+    Route::get('staff', fn() => view('dash.staff'))
+         ->name('dash.staff')
+         ->middleware('role:staff');
 
-     // Çıkış
-     Route::post('logout', 'logout')->name('logout');
-    });
-   // -- Dil Degistirme -- 
-    Route::get('lang/{locale}', function ($locale) 
-    {
-        session(['locale' => $locale]);
-        return redirect()->back();
-    })->name('lang.switch')->where('locale', 'en|tr');
+    Route::get('admin', fn() => view('dash.admin'))
+         ->name('dash.admin')
+         ->middleware('role:admin');
+});
 
-    // --- Tema değiştirme ---
-    Route::get('theme/{mode}', function ($mode) 
-    {
-        session(['theme' => $mode]);
-        return redirect()->back();
-    })->name('theme.switch')->where('mode', 'light|dark');
 
-    Route::view('/privacy', 'privacy')->name('privacy');
-    Route::view('/terms',   'terms')->name('terms');
+// Takvim ve içerik
+Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
+
+Route::middleware('auth.session')->resource('content', ContentController::class);
+// Dil & tema
+Route::get('lang/{locale}', fn($l) => back()->withSession(['locale' => $l])) ->name('lang.switch');
+Route::get('theme/{mode}', fn($m) => back()->withSession(['theme' => $m])) ->name('theme.switch');
+
+// Statik sayfalar
+Route::view('privacy','privacy')->name('privacy');
+Route::view('terms','terms')->name('terms');

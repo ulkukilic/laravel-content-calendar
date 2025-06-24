@@ -137,10 +137,75 @@ a:hover {
   width: 100%;
   height: auto;
 }
+/* Sol-üst kuş – her ekranda sabit, logo boyutunda */
+.login-page .p-h-40,
+.register-page .p-h-40 {          /* iki sayfa da kapsansın */
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 80px;                   /* küçültüldü */
+  height: auto;
+  display: block !important;     /* d-none'i bastırır */
+  z-index: 5;
+}
 
-/* Responsive: küçük ekranlarda resmi gizle (isteğe bağlı) */
+/* Sağ-üst kuş – sadece büyük ekranlarda */
+.login-page .offset-md-1.col-md-6 img,
+.register-page .offset-md-1.col-md-6 img {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 15vw;
+  max-width: 200px;
+  height: auto;
+  z-index: 4;
+}
+
+/* Ortalanmış kart (login & register) */
+.login-page .full-height,
+.register-page .full-height {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0;
+}
+
+.login-page .col-md-5,
+.register-page .col-md-5 {
+  flex: 0 0 auto;
+  max-width: 380px;
+  width: 90%;
+  z-index: 6;                    /* logoların önünde */
+}
+
+.login-page .card,
+.register-page .card {
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+.login-page .card-body,
+.register-page .card-body {
+  padding: 2rem;
+}
+
+/* Footer tamamı ortada */
+footer.text-center {
+  text-align: center;
+}
+footer.text-center .my-3 { display: inline-flex; gap: .5rem; }
+footer.text-center a       { margin: 0 .25rem; }
+
+aside.bg-light  .nav-link { padding: .55rem 1rem; }
+aside.bg-light  .nav-link:hover { background: rgba(0,0,0,.05); }
+aside.bg-light  .nav-link.active { background: rgba(0,123,255,.1); }
+
+/* Küçük ekran: sağ kuşu gizle, form tam genişlik */
 @media (max-width: 767px) {
-  .login-page .offset-md-1.col-md-6 {
-    display: none;
-  }
+  .login-page  .offset-md-1.col-md-6,
+  .register-page .offset-md-1.col-md-6 { display: none; }
+  .login-page  .col-md-5,
+  .register-page .col-md-5             { max-width: 100%; }
 }
