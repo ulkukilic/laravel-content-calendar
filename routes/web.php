@@ -33,13 +33,16 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout',  'logout')->name('logout');
 });
 
-Route::middleware('mysessioncheck')->prefix('dash')->group(function () {
-    Route::get('staff', fn() => view('dash.staff'))->name('dash.staff')->middleware('role:staff');
-    Route::get('admin', fn() => view('dash.admin'))->name('dash.admin')->middleware('role:admin');
+
+Route::middleware(['web', 'auth.session'])->prefix('dash')->group(function () {
+    Route::get('staff', fn() => view('dash.staff'))
+        ->middleware('role:staff')
+        ->name('dash.staff');
+        
+    Route::get('admin', fn() => view('dash.admin'))
+        ->middleware('role:admin')
+        ->name('dash.admin');
 });
-
-
-
 
 // Takvim ve içerik
 Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');

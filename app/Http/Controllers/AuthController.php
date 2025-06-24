@@ -47,7 +47,7 @@ class AuthController extends Controller
             'name'    => $user->name,
             'role'    => $user->role,
             'email'   => $user->email,
-            'full_name' => $user->name, // view'lardaki session('full_name') için
+            
         ]);
 
         // if-else döngüsünde kullanıcı rolüne göre sayfaya yönlendirilir
