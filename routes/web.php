@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ContentController;
+use App\Http\Middleware\AuthenticateSession;
+
 
 Route::get('/clrall', function () {
     Artisan::call('cache:clear');
@@ -31,22 +33,18 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout',  'logout')->name('logout');
 });
 
-// Dash (önce auth, sonra role)
-Route::middleware('auth.session')->prefix('dash')->group(function () {
-    Route::get('staff', fn() => view('dash.staff'))
-         ->name('dash.staff')
-         ->middleware('role:staff');
-
-    Route::get('admin', fn() => view('dash.admin'))
-         ->name('dash.admin')
-         ->middleware('role:admin');
+Route::middleware('mysessioncheck')->prefix('dash')->group(function () {
+    Route::get('staff', fn() => view('dash.staff'))->name('dash.staff')->middleware('role:staff');
+    Route::get('admin', fn() => view('dash.admin'))->name('dash.admin')->middleware('role:admin');
 });
+
+
 
 
 // Takvim ve içerik
 Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
 
-Route::middleware('auth.session')->resource('content', ContentController::class);
+Route::middleware('mysessioncheck')->resource('content', ContentController::class);
 // Dil & tema
 Route::get('lang/{locale}', fn($l) => back()->withSession(['locale' => $l])) ->name('lang.switch');
 Route::get('theme/{mode}', fn($m) => back()->withSession(['theme' => $m])) ->name('theme.switch');

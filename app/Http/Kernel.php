@@ -50,7 +50,7 @@ class Kernel extends HttpKernel
         'auth'         => \App\Http\Middleware\Authenticate::class,
         'guest'        => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'role'         => \App\Http\Middleware\RoleMiddleware::class,
-        'auth.session' => \App\Http\Middleware\AuthenticateSession::class,
+        'mysessioncheck' => \App\Http\Middleware\AuthenticateSession::class,
         'auth.basic'   => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers'=> \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can'          => \Illuminate\Auth\Middleware\Authorize::class,
