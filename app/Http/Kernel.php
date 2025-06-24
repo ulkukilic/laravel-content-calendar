@@ -6,25 +6,10 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
-    /**
-     * Global HTTP middleware stack.
-     *
-     * @var array<int, class-string|string>
-     */
     protected $middleware = [
-        \App\Http\Middleware\TrustProxies::class,
-        \Illuminate\Http\Middleware\HandleCors::class,
-        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+       
     ];
 
-    /**
-     * Route middleware groups.
-     *
-     * @var array<string, array<int, class-string|string>>
-     */
     protected $middlewareGroups = [
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
@@ -33,8 +18,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\SetLocale::class,
+            \App\Http\Middleware\RoleMiddleware::class,
         ],
-
         'api' => [
             \Illuminate\Routing\Middleware\ThrottleRequests::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -44,19 +29,20 @@ class Kernel extends HttpKernel
     /**
      * Route middleware aliases.
      *
-     * @var array<string, class-string|string>
+     * Laravel 10+ uses $middlewareAliases instead of $routeMiddleware.
      */
     protected $middlewareAliases = [
-    'auth' => \App\Http\Middleware\Authenticate::class,
-    'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-    'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
-    'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-    'can' => \Illuminate\Auth\Middleware\Authorize::class,
-    'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-    'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
-    'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-    'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-    'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-    'role' => \App\Http\Middleware\RoleMiddleware::class, // Bu satırı ekleyin
-];
+        'auth'            => \App\Http\Middleware\Authenticate::class,
+        'auth.basic'      => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.session'    => \Illuminate\Session\Middleware\AuthenticateSession::class,
+        'cache.headers'   => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can'             => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'           => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'password.confirm'=> \Illuminate\Auth\Middleware\RequirePassword::class,
+        'signed'          => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle'        => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified'        => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+       'role'            => \App\Http\Middleware\RoleMiddleware::class,
+    ];
 }

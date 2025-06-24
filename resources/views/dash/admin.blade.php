@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('title','Admin Paneli')
-@section('page_title','Hoşgeldin, ' . session('full_name') . '!')
+@section('page_title','Hoşgeldin, ' . session('name') . '!')
 
 @section('content')
   <div class="alert alert-success">

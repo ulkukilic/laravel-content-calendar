@@ -1,8 +1,8 @@
 {{-- resources/views/dash/staff.blade.php --}}
-@extends('layouts.staff')
+@extends('layouts.app')
 
 @section('title', 'Personel Paneli')
-@section('page_title', 'Hoşgeldin, ' . session('full_name') . '!')
+@section('page_title', 'Hoşgeldin, ' . session('name') . '!')
 
 @section('content')
   <div class="alert alert-info">

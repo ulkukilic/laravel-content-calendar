@@ -50,6 +50,7 @@ class AuthController extends Controller
             
         ]);
 
+         
         // if-else döngüsünde kullanıcı rolüne göre sayfaya yönlendirilir
         if ($user->role === 'admin') {
             return redirect()->route('dash.admin');

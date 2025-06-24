@@ -35,13 +35,9 @@ Route::controller(AuthController::class)->group(function () {
 
 
 Route::middleware(['web', 'auth.session'])->prefix('dash')->group(function () {
-    Route::get('staff', fn() => view('dash.staff'))
-        ->middleware('role:staff')
-        ->name('dash.staff');
+    Route::get('staff', fn() => view('dash.staff')) ->middleware('role:staff') ->name('dash.staff');
         
-    Route::get('admin', fn() => view('dash.admin'))
-        ->middleware('role:admin')
-        ->name('dash.admin');
+    Route::get('admin', fn() => view('dash.admin')) ->middleware('role:admin')->name('dash.admin');
 });
 
 // Takvim ve içerik
