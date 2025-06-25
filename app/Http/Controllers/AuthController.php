@@ -86,7 +86,7 @@ class AuthController extends Controller
         $validated = $request->only(['name', 'surname', 'email', 'password']);
 
         DB::table('users')->insert([
-            'id'         => Str::uuid(),                   // UUID ekledik
+            'id'         => Str::uuid(),   //  her kayit icin random id degeri atamasi yapar ornek 5468484ewrfhe  gibi :)              
             'name'       => $validated['name'].' '.$validated['surname'], // isim + soyisim
             'email'      => $validated['email'],
             'password'   => Hash::make($validated['password']),

@@ -16,7 +16,7 @@
     <li class="nav-item mb-2">
       <a class="nav-link d-flex align-items-center <?php echo e(request()->routeIs('content.*') ? 'active text-primary' : 'text-dark'); ?>"
          href="<?php echo e(route('content.index')); ?>">
-        📝 <span class="ms-2"><?php echo e(__('content.title') ?? 'Blog'); ?></span>
+        📝 <span class="ms-2">Blog</span>
       </a>
     </li>
 

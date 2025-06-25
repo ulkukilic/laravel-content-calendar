@@ -43,7 +43,8 @@ Route::middleware(['web', 'auth.session'])->prefix('dash')->group(function () {
 // Takvim ve içerik
 Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
 
-Route::middleware('mysessioncheck')->resource('content', ContentController::class);
+Route::middleware('auth.session')->resource('content', CalendarController::class);
+
 // Dil & tema
 Route::get('lang/{locale}', fn($l) => back()->withSession(['locale' => $l])) ->name('lang.switch');
 Route::get('theme/{mode}', fn($m) => back()->withSession(['theme' => $m])) ->name('theme.switch');
