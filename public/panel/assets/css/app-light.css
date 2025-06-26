@@ -209,3 +209,74 @@ aside.bg-light  .nav-link.active { background: rgba(0,123,255,.1); }
   .login-page  .col-md-5,
   .register-page .col-md-5             { max-width: 100%; }
 }
+/* ------------------- */
+/* Sabit sol sidebar için eklenmesi gerekenler */
+.side-nav {
+  position: fixed !important;      /* Her zaman sol kenarda sabit */
+  top: 0;
+  left: 0;
+  height: 100vh !important;        /* Tam ekran yüksekliği */
+  width: 240px !important;         /* Sidebar genişliği */
+  background-color: #f8f9fa !important; /* Hafif gri arka plan (isteğe göre) */
+  border-right: 1px solid #dee2e6;
+  z-index: 1040;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-nav-inner {
+  flex: 1 1 auto;
+  padding: 1.5rem 0 1.5rem 0.5rem;
+}
+
+.side-nav-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.side-nav-menu .nav-item {
+  width: 100%;
+}
+
+.side-nav-menu .nav-link {
+  display: flex;
+  align-items: center;
+  padding: .7rem 1.2rem;
+  border-radius: .375rem;
+  transition: background .12s;
+  color: #212529;
+  font-weight: 500;
+  width: 100%;
+  text-decoration: none;
+}
+.side-nav-menu .nav-link:hover {
+  background: #e9ecef;
+  color: #0d6efd;
+}
+.side-nav-menu .nav-link.active {
+  background: rgba(0,123,255,.1);
+  color: #0d6efd;
+}
+
+/* Sidebar'ın ana içerikten taşmasını engelle */
+body {
+  margin-left: 240px !important; /* Sidebar genişliği kadar ana içeriği sağa kaydır */
+}
+
+/* Responsive: Küçük ekranda sidebar'ı alta/sakla */
+@media (max-width: 991.98px) {
+  .side-nav {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    border-right: none;
+    z-index: auto;
+  }
+  body {
+    margin-left: 0 !important;
+  }
+}
+/* ------------------- */

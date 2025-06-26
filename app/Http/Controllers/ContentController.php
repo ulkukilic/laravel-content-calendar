@@ -11,7 +11,7 @@ class ContentController extends Controller
     {
        if (!session('id')) 
         {
-            return redirect()->route('login.form');
+            return redirect()->route('login');
         }
         if(session('role')== 'admin')
         {
@@ -45,7 +45,7 @@ class ContentController extends Controller
     {
         if (!session('id') || session('role') !== 'staff') 
         {
-           return redirect()->route('login.form');
+           return redirect()->route('login');
         }
         
         // Eğer istek POST ise: Kaydetme işlemi yapar 
@@ -75,7 +75,7 @@ class ContentController extends Controller
     {
          if (!session('id')) 
          {
-            return redirect()->route('login.form');
+            return redirect()->route('login');
          }
            $blog = DB::table('contents')  // contents tablosundaki verileri cekmeye basla 
              ->join('categories', 'contents.category_id', '=', 'categories.id') // icerigin kategorisini  ekle
@@ -98,7 +98,7 @@ class ContentController extends Controller
     {
         if(!session('id')|| session('role')!=='staff')
         {
-           return redirect()->route('login.form');
+           return redirect()->route('login');
         }
 
         $blog=DB::table('contents')// Bu id'ye ve bu kullanıcıya ait içeriği bul
@@ -112,7 +112,7 @@ class ContentController extends Controller
     public function update(Request $request , $id)
     {
        if (!session('user_id') || session('role') !== 'staff') {
-            return redirect()->route('login.form');
+            return redirect()->route('login');
          }
     
           $request->validate([

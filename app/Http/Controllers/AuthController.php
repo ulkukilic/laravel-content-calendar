@@ -66,7 +66,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->session()->flush(); // Oturumdaki tüm verileri temizleyerek kullanıcıyı sıfırlar
-        return redirect()->route('login.form'); // kullanıcıyı login sayfasına yönlendirir
+        return redirect()->route('login'); // kullanıcıyı login sayfasına yönlendirir
     }
 
     public function showRegisterForm()
@@ -94,6 +94,6 @@ class AuthController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-         return redirect()->route('login.form')->with('success','Please Enter the Login Form');
+         return redirect()->route('login')->with('success','Please Enter the Login Form');
     }
 }
