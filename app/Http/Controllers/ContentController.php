@@ -71,7 +71,7 @@ class ContentController extends Controller
          $categories = DB::table('categories')->get(); // Tüm kategorileri al
          return view('content.create', compact('categories'));
   }
-    public function show ($id)
+     public function show ($id)
     {
          if (!session('id')) 
          {
@@ -94,4 +94,49 @@ class ContentController extends Controller
              }
              return view ('content.show' , compact('blog'));
     }
+    public function edit($id)
+    {
+        if(!session('id')|| session('role')!=='staff')
+        {
+           return redirect()->route('login.form');
+        }
+
+        $blog=DB::table('contents')// Bu id'ye ve bu kullanıcıya ait içeriği bul
+                ->where('id',$id)
+                ->where('staff_id',session('id'))
+                ->first();
+        $categories=DB::table('categories')->get();
+
+        return view('content.edit',compact ('blog','categories'));
+    }
+    public function update(Request $request , $id)
+    {
+       if (!session('user_id') || session('role') !== 'staff') {
+            return redirect()->route('login.form');
+         }
+    
+          $request->validate([
+            'title' => 'required|string|max:200',
+            'body'  => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+          ]);
+         
+           $updated = DB::table('contents')
+            ->where('id', $id)
+            ->where('staff_id', session('user_id'))
+            ->update([
+                'title'       => $request->title,
+                'category_id' => $request->category_id,
+                'body'        => $request->body,
+                'scheduled_at'=> $request->scheduled_at,
+                'status'      => 'pending', // Güncelleyince tekrar onaya düşer
+            ]);
+             if (!$updated) {
+            return back()->with('error', 'Blog güncellenemedi.');
+        }
+
+        return redirect()->route('content.index')->with('success', 'Blogunuz güncellendi ve tekrar onaya gönderildi.');
+    
+        }
+        
 }

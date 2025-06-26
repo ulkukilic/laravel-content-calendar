@@ -17,9 +17,6 @@ Route::get('/clrall', function () {
     Artisan::call('optimize');
     return 'Cache temizlendi!';
 });
-// Ayarlar
-Route::get('settings',  [SettingsController::class, 'show'])->name('settings.show');
-Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
 
 // Ana sayfa → login
 Route::get('/', fn() => redirect()->route('login'));
@@ -36,14 +33,25 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware(['web', 'auth.session'])->prefix('dash')->group(function () {
     Route::get('staff', fn() => view('dash.staff')) ->middleware('role:staff') ->name('dash.staff');
-        
     Route::get('admin', fn() => view('dash.admin')) ->middleware('role:admin')->name('dash.admin');
 });
 
-// Takvim ve içerik
+// Takvim işlemleri
 Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
+Route::post('calendar/store', [CalendarController::class, 'adminCalendarShow'])->name('calendar.store');
+Route::get('calendar/all', [CalendarController::class, 'all'])->name('calendar.all');
 
-Route::middleware('auth.session')->resource('content', CalendarController::class);
+// Ayarlar
+Route::get('settings',  [SettingsController::class, 'show'])->name('settings.show');
+Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
+
+// Blog işlemleri
+Route::get('content', [ContentController::class, 'index'])->name('content.index');
+Route::get('content/create', [ContentController::class, 'create'])->name('content.create');
+Route::post('content/store', [ContentController::class, 'store'])->name('content.store');
+Route::get('content/{id}', [ContentController::class, 'show'])->name('content.show');
+Route::get('content/{id}/edit', [ContentController::class, 'edit'])->name('content.edit');
+Route::post('content/{id}/update', [ContentController::class, 'update'])->name('content.update');
 
 // Dil & tema
 Route::get('lang/{locale}', fn($l) => back()->withSession(['locale' => $l])) ->name('lang.switch');
@@ -52,3 +60,4 @@ Route::get('theme/{mode}', fn($m) => back()->withSession(['theme' => $m])) ->nam
 // Statik sayfalar
 Route::view('privacy','privacy')->name('privacy');
 Route::view('terms','terms')->name('terms');
+//Route::middleware('auth.session')->resource('content', CalendarController::class);
